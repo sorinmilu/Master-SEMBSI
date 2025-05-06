@@ -2,6 +2,7 @@
 DATA/
 RESULTS/
 TRAINED_MODELS/
+WORK_IN_PROGRESS/
 
 # Ignore all files with the following extensions
 *.sh
