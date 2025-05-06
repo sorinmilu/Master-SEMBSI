@@ -1,0 +1,184 @@
+{
+"alimente": {
+    "Mar": {
+      "categorie": "Fructe",
+      "nutrienti_la_100g": {
+        "carbohidrati": 13.8,
+        "proteine": 0.3,
+        "grasimi": 0.2,
+        "kcal": 57.0
+      }
+    },
+    "Banana": {
+      "categorie": "Fructe",
+      "nutrienti_la_100g": {
+        "carbohidrati": 22.8,
+        "proteine": 1.1,
+        "grasimi": 0.3,
+        "kcal": 96.5
+      }
+    },
+    "Morcov": {
+      "categorie": "Legume",
+      "nutrienti_la_100g": {
+        "carbohidrati": 9.6,
+        "proteine": 0.9,
+        "grasimi": 0.2,
+        "kcal": 41.0
+      }
+    },
+    "Cartof": {
+      "categorie": "Legume",
+      "nutrienti_la_100g": {
+        "carbohidrati": 17.0,
+        "proteine": 2.0,
+        "grasimi": 0.1,
+        "kcal": 75.9
+      }
+    },
+    "Piept de pui": {
+      "categorie": "Carne",
+      "nutrienti_la_100g": {
+        "carbohidrati": 0.0,
+        "proteine": 31.0,
+        "grasimi": 3.6,
+        "kcal": 165.4
+      }
+    },
+    "Ou": {
+      "categorie": "Produse de origine animală",
+      "nutrienti_la_100g": {
+        "carbohidrati": 1.1,
+        "proteine": 12.6,
+        "grasimi": 10.6,
+        "kcal": 143.8
+      }
+    },
+    "Brânză telemea": {
+      "categorie": "Lactate",
+      "nutrienti_la_100g": {
+        "carbohidrati": 1.3,
+        "proteine": 14.0,
+        "grasimi": 25.0,
+        "kcal": 295.2
+      }
+    },
+    "Iaurt natural": {
+      "categorie": "Lactate",
+      "nutrienti_la_100g": {
+        "carbohidrati": 4.7,
+        "proteine": 3.5,
+        "grasimi": 3.0,
+        "kcal": 61.3
+      }
+    },
+    "Orez alb": {
+      "categorie": "Cereale",
+      "nutrienti_la_100g": {
+        "carbohidrati": 28.0,
+        "proteine": 2.7,
+        "grasimi": 0.3,
+        "kcal": 128.5
+      }
+    },
+    "Pâine integrală": {
+      "categorie": "Cereale",
+      "nutrienti_la_100g": {
+        "carbohidrati": 41.0,
+        "proteine": 8.0,
+        "grasimi": 2.0,
+        "kcal": 226.0
+      }
+    },
+    "Ulei de măsline": {
+      "categorie": "grasimi",
+      "nutrienti_la_100g": {
+        "carbohidrati": 0.0,
+        "proteine": 0.0,
+        "grasimi": 100.0,
+        "kcal": 900.0
+      }
+    },
+    "Avocado": {
+      "categorie": "Fructe",
+      "nutrienti_la_100g": {
+        "carbohidrati": 8.5,
+        "proteine": 2.0,
+        "grasimi": 15.0,
+        "kcal": 177.0
+      }
+    },
+    "Somon": {
+      "categorie": "Pește",
+      "nutrienti_la_100g": {
+        "carbohidrati": 0.0,
+        "proteine": 20.0,
+        "grasimi": 13.0,
+        "kcal": 209.0
+      }
+    },
+    "Migdale": {
+      "categorie": "Semințe/Nuci",
+      "nutrienti_la_100g": {
+        "carbohidrati": 22.0,
+        "proteine": 21.0,
+        "grasimi": 49.0,
+        "kcal": 579.0
+      }
+    },
+    "Linte": {
+      "categorie": "Leguminoase",
+      "nutrienti_la_100g": {
+        "carbohidrati": 20.0,
+        "proteine": 9.0,
+        "grasimi": 0.4,
+        "kcal": 121.6
+      }
+    }
+  },
+  "preferințe_dietetice": {
+    "vegan": {
+      "alimente": ["Mar", "Banana", "Morcov", "Cartof"]
+    },
+    "vegetarian": {
+      "suitable_for": ["Mar", "Banana", "Morcov", "Cartof", "Iaurt natural", "Brânză telemea", "Ou"]
+    },
+    "keto": {
+      "suitable_for": ["Piept de pui", "Ou"]
+    },
+    "low-carb":  {
+      "suitable_for": ["Piept de pui", "Ou", "Somon", "Avocado", "Migdale", "Ulei de măsline"]
+    }
+  },
+  "mese": {
+    "mic_dejun": {
+       "contine": ["Banana", "Iaurt natural", "Mar"]
+    },
+    "prânz": {
+        "contine": ["Piept de pui", "Orez alb", "Morcov"]
+    },
+    "cină": {
+      "contine": ["Somon", "Avocado", "Linte"]
+    }
+  },
+  "condiții_medicale": {
+    "diabet": {
+      "descriere": "Se recomandă controlul strict al aportului de carbohidrati simpli.",
+      "alimente_interzise": ["Banana", "Orez alb", "Pâine integrală"]
+    },
+    "hipertensiune": {
+      "descriere": "Reducerea consumului de sare și grasimi saturate.",
+      "alimente_interzise": ["Brânză telemea", "Ou"]
+    },
+    "intoleranță_lactoză": {
+      "descriere": "Se evită toate produsele lactate care conțin lactoză.",
+      "alimente_interzise": ["Iaurt natural", "Brânză telemea"]
+    }
+  },
+  "alergii": {
+    "lactate": ["Brânză telemea", "Iaurt natural"],
+    "nuci": ["Migdale"],
+    "ouă": ["Ou"],
+    "gluten": ["Pâine integrală"]
+  }
+}

@@ -1,0 +1,74 @@
+{
+    "question": "Does it live in water?",
+    "yes": {
+      "question": "Is it a mammal?",
+      "yes": {
+        "question": "Does it have a blowhole?",
+        "yes": "dolphin",
+        "no": "seal"
+      },
+      "no": {
+        "question": "Is it venomous?",
+        "yes": "stingray",
+        "no": {
+          "question": "Does it have tentacles?",
+          "yes": "octopus",
+          "no": "fish"
+        }
+      }
+    },
+    "no": {
+      "question": "Can it fly?",
+      "yes": {
+        "question": "Is it nocturnal?",
+        "yes": "bat",
+        "no": {
+          "question": "Is it colorful?",
+          "yes": "parrot",
+          "no": "eagle"
+        }
+      },
+      "no": {
+        "question": "Is it a mammal?",
+        "yes": {
+          "question": "Is it domesticated?",
+          "yes": {
+            "question": "Is it larger than a cat?",
+            "yes": "dog",
+            "no": "cat"
+          },
+          "no": {
+            "question": "Is it a big cat?",
+            "yes": "lion",
+            "no": {
+              "question": "Is it a climbing animal?",
+              "yes": "monkey",
+              "no": "elephant"
+            }
+          }
+        },
+        "no": {
+          "question": "Does it have 8 legs?",
+          "yes": {
+            "question": "Does it spin webs?",
+            "yes": "spider",
+            "no": "scorpion"
+          },
+          "no": {
+            "question": "Does it have scales?",
+            "yes": {
+              "question": "Is it cold-blooded?",
+              "yes": "lizard",
+              "no": "armadillo"
+            },
+            "no": {
+              "question": "Is it a hopping animal?",
+              "yes": "kangaroo",
+              "no": "rabbit"
+            }
+          }
+        }
+      }
+    }
+  }
+  

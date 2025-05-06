@@ -1,0 +1,42 @@
+{
+    "question": "Does it have flowers?",
+    "yes": {
+      "question": "Is it a tree?",
+      "yes": {
+        "question": "Does it produce fruit?",
+        "yes": "apple tree",
+        "no": "oak tree"
+      },
+      "no": {
+        "question": "Is it a small plant?",
+        "yes": {
+          "question": "Does it have a strong fragrance?",
+          "yes": "lavender",
+          "no": "sunflower"
+        },
+        "no": {
+          "question": "Is it a climbing plant?",
+          "yes": "ivy",
+          "no": "rose"
+        }
+      }
+    },
+    "no": {
+      "question": "Does it have leaves?",
+      "yes": {
+        "question": "Is it a fern?",
+        "yes": "fern",
+        "no": {
+          "question": "Does it have a woody stem?",
+          "yes": "cactus",
+          "no": "grass"
+        }
+      },
+      "no": {
+        "question": "Does it have a thick stem?",
+        "yes": "cactus",
+        "no": "moss"
+      }
+    }
+  }
+  
