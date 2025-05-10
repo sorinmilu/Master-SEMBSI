@@ -247,7 +247,7 @@ def align_landmarks(landmarks):
     return normalized_landmarks
 
 
-description = 'Program that extracts the embeddings from a folder of images using a CNN model. The model has to be trained with the same architecture as the one used for inference. The program also generates t-SNE and UMAP charts of the embeddings.'
+description = 'Program that extracts the landmarks from a set of images (using mediapipe library) and tries to inspect their clustering properties. The program generates t-SNE and UMAP charts of the embeddings.'
 
 epilog=r""" 
 The structure of the directory has to be very precise, it has to have one level of subdirectories and within those subdirectories the images. 
@@ -261,11 +261,11 @@ epilog_text = textwrap.dedent(epilog).strip()
 
 parser = argparse.ArgumentParser(prog='infer_folder.py',
                                  description=description,
-                                 usage='infer_folder.py -id <input_directory> -m <model file> -e <embedding size>',
+                                 usage='infer_folder.py -id <input_directory> -os <tsne_chart_output_name> -ou <umap_chart_output_name>',
                                  epilog=epilog_text,
                                  formatter_class=argparse.RawTextHelpFormatter )
 
-parser.add_argument("-id", "--input_directory", required=True, help="Directory with the testing images. Can have subdiorectories", type=str)
+parser.add_argument("-id", "--input_directory", required=True, help="Directory with the testing images.", type=str)
 parser.add_argument("-os", "--output_tsne", default='output_tsne', required=False, help="Name of the t-sne chart. No extension (png will be added, together with the size of the embeddings vector)", type=str)
 parser.add_argument("-ou", "--output_umap", default='output_umap', required=False, help="Name of the umap chart. No extension (png will be added, together with the size of the embeddings vector)", type=str)
 

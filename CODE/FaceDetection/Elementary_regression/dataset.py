@@ -60,30 +60,5 @@ class YOLODataset(Dataset):
             with open(label_path, "r") as f:
                 for line in f:
                     values = list(map(float, line.strip().split()))
-                    # Rescale the bounding box coordinates
-                    norm_x_center, norm_y_center, norm_bbox_width, norm_bbox_height = values[1], values[2], values[3], values[4]
-
-                    #recalculates the original pixel coordinates from norm
-                    ox_center = norm_x_center * original_width
-                    oy_center = norm_y_center * original_height
-                    obbox_width = norm_bbox_width * original_width
-                    obbox_height = norm_bbox_height * original_height
-
-
-                    # Rescale bounding box coordinates to the new image size (after transformation)
-                    x_center = ox_center * new_width / original_width
-                    y_center = oy_center * new_height / original_height
-                    width = obbox_width * new_width / original_width
-                    height = obbox_height * new_height / original_height
-
-                    #renormalize the coordinates
-
-                    n_x_center = x_center/new_width
-                    n_y_center = y_center/new_height
-                    n_width = width/new_width
-                    n_height = width/new_height
-
-                    # Append the adjusted box
-                    boxes.append([values[0], n_x_center, n_y_center, n_width, n_height])
-
+                    boxes.append(values)
         return image, torch.tensor(boxes)

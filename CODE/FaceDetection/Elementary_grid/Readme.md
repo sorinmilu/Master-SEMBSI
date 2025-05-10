@@ -10,11 +10,11 @@ Depășirea acestei limitări pleacă de la observația că rețeaua neuronală 
 Într-un fel, seamănă cu tehnica ferestrei mobile aplicată la diferite scări. Încă aici, încercăm să introducem acest grid direct în rețeaua neuronală astfel încât aceasta să fie în stare să clasifice fiecare fragment al imaginii ca fiind "fragment de față" sau altceva într-o singură trecere. Pentru aceasta rețeaua trebuie extinsă astfel încât: 
 
 1. complexul convoluțional să fie puțin mai puternic, să fie capabil să observe mai multe detalii la scări mai mici în imagine
-2. Stratul complet conectat final (cel care oferă răspunsul), în loc să fie un singur neuron care să conțină probnabilitatea ca întraga imagine să fie pozitivă sau negativă să ofere această probabilitate la nivelul fiecărei celule, adică să fie un strat de n x n valori, unde x este dimensiunea gridului. Fiecare valoare a acestui vector va representa probabilitatea ca celula i,j să conțină un fragment de față umană. 
-3. Antrenamentul trebuie să fie special pentru acest tip de detecție. Altfel spus, fiecare imagine introdusă în model ca dată de antrenament trebuie să fie însoțită de o regiune a feței împărțită în n x n celule. 
-4. Fiecare valoare a lui n aleasă trebuie să fie antrenată separat, producând un model specific.
+2. Stratul complet conectat final (cel care oferă răspunsul), în loc să fie un singur neuron care să conțină probabilitatea ca întreaga imagine să fie pozitivă sau negativă să ofere această probabilitate la nivelul fiecărei celule, adică să fie un strat de n x n valori, unde x este dimensiunea grilei. Fiecare valoare a acestui vector va representa probabilitatea ca celula i,j să conțină un fragment de față umană. 
+3. Antrenamentul trebuie să fie special pentru acest tip de detecție. Altfel spus, fiecare imagine introdusă în model ca dată de antrenament trebuie să fie însoțită de specificarea regiunii care conține fața umană. Procesul de citire a datelor trebuie să genereze informații cu privire la prezența feței în diferite celule ale gridului de n x n.  
+4. Fiecare valoare a lui n aleasă (dimensiune a grilei) trebuie să fie antrenată separat, producând un model specific.
 
-Modelul permite identificarea unei singure clase de obiecte. Antrenamentul se face pe baza unui set de imagini pozitive care contin specificatii cu privire la casetele in care se gasesc obiectele (boilding boxes). Celulele din imagini care se gasesc in interiorul unei astfel de casete de detectie sunt considerate obiect si sunt marcate cu valoarea 1. Celulele din afara casetelor sunt marcate cu 0 si reprezinta partea negativa a antrenamentului. 
+Modelul permite identificarea unei singure clase de obiecte. Antrenamentul se face pe baza unui set de imagini pozitive care contin specificatii cu privire la casetele in care se gasesc obiectele (bounding boxes). Celulele din imagini care se gasesc in interiorul unei astfel de casete de detectie sunt considerate obiect si sunt marcate cu valoarea 1. Celulele din afara casetelor sunt marcate cu 0 si reprezinta partea negativa a antrenamentului. Această grilă reprezintă un fel de "matrice a adevărului". 
 
 ![Matricea de adevar](./doc_images/Matricea_de_adevar.png)
 
@@ -22,7 +22,7 @@ Modelul permite identificarea unei singure clase de obiecte. Antrenamentul se fa
 
 ### GridSimpleCNNModel
 
-Modelul este compus dintr-un component convolutional si un clasificator complet conectat. Rezolutia imaginilor de intrare este 224 de pixeli. 
+Modelul este compus dintr-un component convoluțional si un clasificator complet conectat. Rezolutia imaginilor de intrare este 224 de pixeli. 
 
 ![Schema modelului](./doc_images/GridSimpleCNNModel_schema.png)
 
@@ -381,3 +381,20 @@ Extractor CNN Simplu
 ![Boxes extraction](./doc_images/combined_pexels-yogendras31-6439200.jpg_grid_big.png.jpg)
 Extractor CNN extins
 ![Boxes extraction](./doc_images/yolo_head/combined_pexels-yogendras31-6439200.jpg_grid_big.png.jpg)
+
+
+## Concluzii
+
+### Puncte forte:
+
+**Simplitate:** Este o modalitate directă de a începe abordarea problemei. Grila oferă o localizare relativ grosieră a potențialelor fețe.
+**Ieșire directă:** Cele n x n de valori de ieșire corespund direct probabilității ca o față să fie prezentă în fiecare celulă a grilei. Acest lucru face ca interpretarea inițială a rezultatului rețelei să fie destul de clară.
+**Natura convoluțională:** Rețelele convoluționale excelează în învățarea ierarhiilor spațiale de caracteristici. Ele pot învăța să detecteze trăsături faciale de bază (ochi, nas, gură) în câmpuri receptive mai mici și apoi să le combine pentru a identifica modele mai mari asemănătoare feței în celulele grilei.
+**Filtrare inițială:** Această abordare poate filtra eficient porțiuni mari ale imaginii care în mod clar nu conțin fețe, reducând spațiul de căutare pentru o localizare mai precisă ulterioară.
+
+### Limitări: 
+
+**Localizare grosieră:** O grilă de dimensiuni reduse oferă casete de delimitare foarte aproximative. O față ar putea acoperi mai multe celule ale grilei, sau o singură celulă a grilei ar putea conține doar o mică parte a unei fețe. Nu vom obține coordonate precise sau dimensiuni ale fețelor detectate direct din această ieșire.
+**Gestionarea mai multor fețe:** Dacă apar mai multe fețe în imagine, fiecare față ar putea activa mai multe celule adiacente ale grilei. Mecanismul de postprocesare este dependent de o separare foarte bună a fețelor.
+**Scala și raportul de aspect al feței:** Fețele au diferite dimensiuni și rapoarte de aspect. O grilă fixă, mai ales una de dimensiuni reduse, ar putea avea dificultăți în a reprezenta cu precizie fețe foarte mici sau cu proporții neobișnuite.
+**Fals pozitive:** Unele obiecte sau texturi care nu sunt fețe ar putea declanșa o probabilitate ridicată în anumite celule ale grilei, ducând la fals pozitive.
