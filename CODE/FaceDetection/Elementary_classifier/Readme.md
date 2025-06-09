@@ -168,21 +168,28 @@ Recall: 1.00
 F1 Score: 0.99
 ```
 
-Problema modelelor de clasificare este că nu pot detecta obiectele căutate decât dacă imaginile analizate conțin fețele încadrate ca în imaginile utilizate la antrenament. De exemplu, reîncadrarea unei imagini o face să se modifice din nedetectată în detectată.
+## Rezultate - comentarii
+
+Problema modelelor de clasificare este că nu pot detecta obiectele căutate decât dacă imaginile analizate conțin fețele încadrate la fel ca în imaginile utilizate la antrenament. De exemplu, reîncadrarea unei imagini o face să se modifice din nedetectată în detectată.
 
 ![img_large_featuremaps](./doc_images/img_large_featuremaps.jpg)
 
 ![img_tight_featuremaps](./doc_images/img_tight_featuremaps.jpg)
 
-Reîncadrarea imaginii o face din nou să nu mai fie identificată. Utilizând un model antrenat pentru imagini cu încadrare mai strânsă fatza este din nou detectată, cu un scor semnificativ mai mic. 
+Reîncadrarea imaginii o face din nou să nu mai fie identificată. 
 
 ![img_tighter_featuremaps](./doc_images/img_tighter_featuremaps.jpg)
 
+Dacă reantrenăm rețeaua folosind imagini cu încadrare mai strânsă fața este din nou detectată, cu un scor semnificativ mai mic (dar se pierde posibilitatea detecției fețelor încadrate mai larg). 
+
+
 ![img_tighter_featuremaps_d](./doc_images/img_tighter_featuremaps_d.jpg)
+
+O altă posibilitate este dublarea numărului de imagini de antrenament, fiind prezente atât cele cu încadrare strânsă cât și cele cu încadrare largă. Aceasta va determina o generalizare a modelului și va putea identifica ambele tipuri de încadrare. 
 
 ## Detectia cu fereastra mobila
 
-Detectia cu fereastra mobila poate fi folosita ca un substitut de regresie pentru a identifica casetele care contin obiecte (fețe). Aceasta implica baleierea unei imagini cu un patrat de rezolutii variate, extragerea conținutului acestuia și procesarea imaginii rezultate ca o imagine de sine statatoare. Daca fragmentul conține o față, caseta curenta este înregistrată. 
+Detectia cu fereastra mobila poate fi folosita ca un substitut de regresie pentru a identifica casetele care contin obiecte (fețe). Aceasta implica baleierea unei imagini cu un pătrat de rezoluții variate, extragerea conținutului acestuia și procesarea imaginii rezultate ca o imagine de sine statatoare. Daca fragmentul conține o față, caseta curenta este înregistrată. 
 
 Aceasta metoda este foarte lenta dar poate fi surprinzator de precisa în situația in care casetele de detectie alese se potrivesc cu dimensiunea fețelor din imagine și în condițiile în care se construiește un algoritm NMS care să facă un sumar corect al casetelor la rezoluții foarte diferite. 
 
@@ -199,7 +206,7 @@ Rezultatul procesului
 ![Tight detection](./doc_images/tight_detection.jpg)
 
 
-Această soluție (a ferestrei mobile) este utilizată și în modelul Haar cascades. Evoluând dincolo de metoda ferestrei mobile au fost: 
+Această soluție (a ferestrei mobile) este utilizată și în alte detectoare (ex. Haar cascades). Evoluând dincolo de metoda ferestrei mobile au fost: 
 
 ### Selective Search (folosit în R-CNN)
 
@@ -216,3 +223,6 @@ Imaginea trece o singură dată printr-un backbone CNN (ex: VGG16 sau ResNet). R
 
 La fiecare locație, sunt plasate mai multe ancore (cutii predefinite de diferite dimensiuni și proporții). Pentru fiecare ancoră, rețeaua prezice: Scor de obiect (dacă există un obiect acolo). Corecții pentru coordonatele ancorei (bounding box refinement). După aplicare, se selectează cele mai bune propuneri (~300 per imagine) folosind Non-Max Supression
 
+#### NMS (Non-Max Supression)
+
+NMS (non-max suppression) este un pas folosit în detectarea obiectelor pentru a elimina casetele de detecție care se suprapun prea mult. De exemplu, dacă două casete detectează același obiect, dar au scoruri diferite de încredere, algoritmul păstrează doar caseta cu scorul mai mare. Cealaltă casetă este eliminată dacă suprapunerea dintre ele, măsurată prin IoU (Intersection over Union), este prea mare. IoU reprezintă raportul dintre suprafața comună a celor două casete și suprafața totală acoperită de ambele; un IoU mare înseamnă că cele două casete detectează același obiect. Astfel, rămâne doar cea mai bună detecție pentru fiecare obiect.
